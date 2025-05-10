@@ -117,6 +117,12 @@ function Header({ hideApplyButton = false }) {
     return (
         <header className="Header">
             <div className="Header-content">
+            <button
+                className="Header-button--back"
+                 onClick={() => navigate(-1)}
+            >
+                ← Back
+            </button>
                 {/* Logo */}
                 <img
                     src={logo}

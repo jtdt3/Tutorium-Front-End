@@ -16,6 +16,25 @@
     align-items: center;
 }
 
+/* Back Button Styling */
+.Header-button--back {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.Header-button--back:hover {
+    background-color: #ddd;
+    border-color: #bbb;
+}
+
+
 .Header-logo {
     height: 50px;
     /* Adjust size as needed */
