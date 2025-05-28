@@ -15,6 +15,10 @@ import BookmarkedTutors from './pages/BookmarkedTutors';
 import TutorViewersPage from './pages/TutorViewers';
 import TutorRequests from './pages/TutorRequests'
 import MfaPage from './pages/MfaPage';
+import TutorApplicationSubjectSelect from './pages/TutorApplicationSubjectSelect';
+import TutorSubjectAssessmentPage from './pages/TutorSubjectAssessment';
+import MathAssessment from './pages/Assessments/MathAssessment'
+
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -39,6 +43,9 @@ function App() {
           <Route path="/mfa" element={<MfaPage />} />
           <Route path="/tutor-viewers" element={<TutorViewersPage/>} />
           <Route path="/tutor-requests" element={<TutorRequests />} />
+          <Route path="/select-subjects" element={<TutorApplicationSubjectSelect />} />
+          <Route path="/subject-assessments" element={<TutorSubjectAssessmentPage />} />
+          <Route path="/assessment/math" element={<MathAssessment />} />
 
 
         </Routes>

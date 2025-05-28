@@ -68,6 +68,8 @@ const handleApplyAsTutorClick = () => {
 if (!isLoggedIn) navigate('/tutor-signup?userType=student');
 else if (approveStatus === 'pending') navigate('/tutor-request-received');
 else navigate('/apply?userType=student');
+    // else navigate('/select-subjects'); // <-- updated route
+
 };
 
 const handleLogout = () => {
@@ -133,7 +135,7 @@ sx={{ bgcolor: profileComplete !== 'yes' || location.pathname === '/' ? 'grey.50
 >
 {/* {location.pathname === '/' && initials} */}
 {/* {(location.pathname === '/' || location.pathname.startsWith('/tutor/')) && initials} */}
-{['/', '/bookmarked-tutors'].includes(location.pathname) || location.pathname.startsWith('/tutor/')
+{['/', '/bookmarked-tutors', '/apply'].includes(location.pathname) || location.pathname.startsWith('/tutor/')
   ? initials
   : null}
 
@@ -146,7 +148,7 @@ sx={{ bgcolor: profileComplete !== 'yes' || location.pathname === '/' ? 'grey.50
 {(location.pathname === '/' || isTutorPath || location.pathname === '/bookmarked-tutors') && approveStatus === 'approved' && (
 <MenuItem onClick={() => handleSwitchView('/tutor-landing')}>Switch to Tutor View</MenuItem>
 )}
-{['/tutor-landing', '/tutor-edit-profile', '/tutor-build-profile', '/tutor-viewers', '/tutor-requests'].includes(location.pathname) && (
+                        {['/tutor-landing', '/tutor-edit-profile', '/tutor-build-profile', '/tutor-viewers', '/tutor-requests', '/subject-assessments', '/assessment/math'].includes(location.pathname) && (
 <MenuItem onClick={() => handleSwitchView('/')}>Switch to Student View</MenuItem>
 )}
 {(location.pathname === '/' || isTutorPath || location.pathname === '/bookmarked-tutors') && (
