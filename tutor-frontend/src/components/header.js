@@ -92,7 +92,7 @@ return (
         variant="outlined"
         color="primary"
         size="large"
-        onClick={() => navigate('/')}
+        onClick={() => navigate(-1)}
         sx={{
             minWidth: 180,
             height: 30,
@@ -106,7 +106,7 @@ return (
             borderWidth: 2,
         }}
     >
-        Back to Home
+        Back
     </Button>
 )}
 </Box>
