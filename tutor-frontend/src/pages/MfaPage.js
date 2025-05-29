@@ -101,35 +101,102 @@ function VerifyCodePage() {
   const [showErrorPopup, setShowErrorPopup] = useState(false);
   const navigate = useNavigate();
 
+  // const handleVerify = async () => {
+  //   if (!email) {
+  //     setError('Email is required for verification.');
+  //     setShowErrorPopup(true);
+  //     return;
+  //   }
+
+  //   const mode = localStorage.getItem('authFlow') || 'signin';
+
+  //   try {
+  //     const response = await fetch(`${API_BASE_URL}/api/verify-2fa-code/`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ email, code, mode }),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (response.ok) {
+  //       localStorage.setItem('userId', data.user_id);
+  //       const intention = localStorage.getItem('intent');
+  //       if (intention === 'tutor') {
+  //         navigate('/apply');
+  //       } else {
+  //         navigate('/');
+  //       }
+  //     } else {
+  //       setError(data.error || 'Invalid or expired code');
+  //       setShowErrorPopup(true);
+  //     }
+  //   } catch (err) {
+  //     console.error('Verification error:', err);
+  //     setError('Something went wrong. Please try again.');
+  //     setShowErrorPopup(true);
+  //   }
+  // };
+
+
   const handleVerify = async () => {
     if (!email) {
       setError('Email is required for verification.');
       setShowErrorPopup(true);
       return;
     }
-
+  
     const mode = localStorage.getItem('authFlow') || 'signin';
-
+    const password = localStorage.getItem('password'); // assuming you saved password earlier
+  
+    if (!password) {
+      setError('Password is required to complete sign-in.');
+      setShowErrorPopup(true);
+      return;
+    }
+  
     try {
-      const response = await fetch(`${API_BASE_URL}/api/verify-2fa-code/`, {
+      // Step 1: Verify 2FA code
+      const verifyResponse = await fetch(`${API_BASE_URL}/api/verify-2fa-code/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, code, mode }),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem('userId', data.user_id);
-        const intention = localStorage.getItem('intent');
-        if (intention === 'tutor') {
-          navigate('/apply');
-        } else {
-          navigate('/');
-        }
-      } else {
-        setError(data.error || 'Invalid or expired code');
+  
+      const verifyData = await verifyResponse.json();
+  
+      if (!verifyResponse.ok) {
+        setError(verifyData.error || 'Invalid or expired code');
         setShowErrorPopup(true);
+        return;
+      }
+  
+      // Step 2: If 2FA verification succeeded, call signin API with email and password
+      const signinResponse = await fetch(`${API_BASE_URL}/api/signin/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const signinData = await signinResponse.json();
+  
+      if (!signinResponse.ok) {
+        setError(signinData.message || 'Sign in failed');
+        setShowErrorPopup(true);
+        return;
+      }
+  
+      // Step 3: Save user info and navigate
+      localStorage.setItem('userId', signinData.user_id);
+      localStorage.setItem('firstName', signinData.first_name);
+      localStorage.setItem('lastName', signinData.last_name);
+      localStorage.setItem('userType', signinData.user_type);
+  
+      const intention = localStorage.getItem('intent');
+      if (intention === 'tutor') {
+        navigate('/apply');
+      } else {
+        navigate('/');
       }
     } catch (err) {
       console.error('Verification error:', err);
@@ -137,6 +204,7 @@ function VerifyCodePage() {
       setShowErrorPopup(true);
     }
   };
+  
 
   const closePopup = () => setShowErrorPopup(false);
 
