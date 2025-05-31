@@ -178,14 +178,11 @@ setErrorMessage('');
 const handleSubmit = async (e) => {
 e.preventDefault();
 try {
-    const response = await fetch(`${API_BASE_URL}/api/verify-email-password/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+const response = await fetch(`${API_BASE_URL}/api/signin/`, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(formData),
+});
 
 const data = await response.json();
 
@@ -195,7 +192,6 @@ localStorage.setItem('firstName', data.first_name);
 localStorage.setItem('lastName', data.last_name);
 localStorage.setItem('userType', data.user_type);
 localStorage.setItem('userId', data.user_id);
-localStorage.setItem('password', formData.password);
 
 const codeResponse = await fetch(`${API_BASE_URL}/api/send-2fa-code/`, {
 method: 'POST',
@@ -221,35 +217,6 @@ setErrorMessage('An error occurred. Please try again.');
 setShowErrorPopup(true);
 }
 };
-
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await fetch(`${API_BASE_URL}/api/send-2fa-code/`, {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ email: formData.email, mode: 'signin' }),
-//       });
-  
-//       const data = await response.json();
-  
-//       if (response.ok) {
-//         localStorage.setItem('email', formData.email);
-//         localStorage.setItem('authFlow', 'signin');
-//         navigate('/mfa'); // go to a page to enter the verification code
-//       } else {
-//         setErrorMessage(data.error || 'Failed to send 2FA code.');
-//         setShowErrorPopup(true);
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       setErrorMessage('An error occurred. Please try again.');
-//       setShowErrorPopup(true);
-//     }
-//   };
-  
-
-
 
 const closePopup = () => setShowErrorPopup(false);
 
