@@ -101,15 +101,6 @@ function TutorProfilePage() {
       fetchDetails();
     }, [tutorId, studentID]);
 
-  // const renderStars = (rating = 0) => {
-  //   return [...Array(5)].map((_, i) => {
-  //     const filled = rating >= i + 1;
-  //     return (
-  //       <span key={i} style={{ color: filled ? '#FFD700' : '#ccc' }}>★</span>
-  //     );
-  //   });
-  // };
-
   const renderStars = (rating = 0) => {
     return Array.from({ length: 5 }, (_, i) => {
       const starValue = Math.min(Math.max(rating - i, 0), 1);  // Ensures a value between 0 and 1
@@ -271,14 +262,6 @@ function TutorProfilePage() {
 
             </Box>
             <Typography variant="body1" sx={{ mb: 2 }}>{tutor.bio}</Typography>
-            {/* <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle2">Subjects:</Typography>
-              {tutor.subjects.split(',').map((sub, i) => (
-                <Button key={i} variant="outlined" size="small" sx={{ m: 0.5 }}>
-                  {sub.trim()}
-                </Button>
-              ))}
-            </Box> */}
 
             <Box sx={{ mb: 2 }}>
               <Typography variant="subtitle2">Subjects:</Typography>
@@ -343,26 +326,6 @@ function TutorProfilePage() {
               </Button>
             </Box>
 
-            {/* — existing send-request form — */}
-            {/* <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
-              <Typography variant="h6" gutterBottom>
-                Send Request
-              </Typography>
-              <TextField
-                fullWidth
-                label="Description"
-                name="description"
-                multiline
-                rows={4}
-                value={formData.description}
-                onChange={handleChange}
-                margin="normal"
-                required
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Send Request
-              </Button>
-            </Box> */}
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
   <Typography variant="h6" gutterBottom>
     Send Request

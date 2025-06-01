@@ -234,11 +234,6 @@ sx={{ backgroundImage: `url(${tutor.profile_picture})`, height: 200, backgroundS
 />
 <CardContent>
 <Typography variant="h6">{`${tutor.user__first_name} ${tutor.user__last_name}`}</Typography>
-{/* <Box className="stars">
-{renderStars(tutor.average_rating).map((fill, idx) => (
-<span key={idx} className="star" style={{ '--fill': `${fill}%` }}></span>
-))}
-</Box> */}
 
 <Box 
   className="stars" 
@@ -289,11 +284,6 @@ sx={{ backgroundImage: `url(${tutor.profile_picture})`, height: 200, backgroundS
 
 
 <Typography className="bubble-label">Subjects:</Typography>
-
-
-{/* <Box className="bubble-container">
-{tutor.subjects.split(',').map((s, i) => <span key={i} className="bubble">{s.trim()}</span>)}
-</Box> */}
 
       <Box className="bubble-container">
         {tutor.subjects.split(',').map((s, i) => {

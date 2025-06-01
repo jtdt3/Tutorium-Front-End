@@ -140,16 +140,6 @@ function BookmarksPage() {
                     <Box key={sectionIndex} sx={{ mb: 1 }}>
                       <Typography variant="subtitle2">{label}:</Typography>
                       <Box sx={{ mt: 0.5 }}>
-                        {/* {items.split(',').map((item, i) => (
-                          <Button
-                            key={i}
-                            size="small"
-                            variant="outlined"
-                            sx={{ m: 0.5, fontSize: '0.75rem' }}
-                          >
-                            {item.trim()}
-                          </Button>
-                        ))} */}
 
                       {label === 'Subjects'
                           ? items.split(',').map((item, i) => {
